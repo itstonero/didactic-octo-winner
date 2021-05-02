@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-import { sequelize } from "../configurations/sequelize";
+const { sequelize } = require("../configuration/sequelize");
 
 const EmployeeSchema = sequelize.define('Employee', {
   employee_id: {
@@ -10,11 +10,11 @@ const EmployeeSchema = sequelize.define('Employee', {
   },
   first_name: DataTypes.STRING,
   last_name : DataTypes.STRING,
-  age: DataType.STRING,
-  Join_date : DataType.STRING
+  age: DataTypes.STRING,
+  Join_date : DataTypes.STRING
 }, {
   tableName: "Employees",
   timestamps: false
 });
 
-module.exports = { EmployeeSchema }
+module.exports = EmployeeSchema

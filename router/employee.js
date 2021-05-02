@@ -4,7 +4,7 @@ const router = express.Router({ mergeParams: true });
 
 router.get('/',  async(request, response) => {
     try{
-        return response.json(employeeController.getEmployees())
+        return response.json(await employeeController.getEmployees())
     }catch(error){
         return response.status(400).json({ error})
     }
@@ -12,7 +12,7 @@ router.get('/',  async(request, response) => {
 
 router.get('/:employeeID',  async(request, response) => {
     try{
-        return response.json(employeeController.getEmployee(request.params.employeeID))
+        return response.json(await employeeController.getEmployee(request.params.employeeID))
     }catch(error){
         return response.status(400).json({ error})
     }
@@ -20,15 +20,15 @@ router.get('/:employeeID',  async(request, response) => {
 
 router.post('/',  async(request, response) => {
     try{
-        return response.status(201).json(employeeController.createEmployee(request.body));
+        return response.status(201).json(await employeeController.createEmployee(request.body));
     }catch(error){
         return response.status(400).json({ error})
     }
 })
 
-router.put('/',  async(request, response) => {
+router.put('/:employeeID',  async(request, response) => {
     try{
-        return response.json(employeeController.updateEmployee(request.body))
+        return response.json(await employeeController.updateEmployee(request.body, request.params.employeeID))
     }catch(error){
         return response.status(400).json({ error})
     }
@@ -36,7 +36,7 @@ router.put('/',  async(request, response) => {
 
 router.delete('/:employeeID',  async(request, response) => {
     try{
-        return response.json(employeeController.deleteEmployee(request.params.employeeID))
+        return response.json(await employeeController.deleteEmployee(request.params.employeeID))
     }catch(error){
         return response.status(400).json({ error})
     }
