@@ -1,10 +1,11 @@
 const EmployeeSchema = require("../schema/employee")
+const logger = require("../services/logger")
 
 const getEmployees = async() => {
     try{
         return await EmployeeSchema.findAll();
     }catch(err){
-
+        logger.error(err);
         throw 'Failed to Retreive Data at this time. Try again later';
     }
 }
@@ -13,7 +14,7 @@ const getEmployee = async(employee_id) => {
     try{
         return await EmployeeSchema.findOne({ where: { employee_id }});
     }catch(err){
-
+        logger.error(err);
         throw 'Failed to Retreive Data at this time. Try again later';
     }
 }
@@ -22,7 +23,7 @@ const createEmployee = async(employee) => {
         const created = await EmployeeSchema.create(employee);
         return created.toJSON()
     }catch(err){
-
+        logger.error(err);
         throw 'Failed to create employee at this time. Try again later';
     }
 }
@@ -31,6 +32,7 @@ const updateEmployee = async(employee, employee_id) => {
         await EmployeeSchema.update(employee, { where: { employee_id }});
         return {...employee, employee_id};
     }catch(err){
+        logger.error(err);
         throw 'Failed to update employee at this time. Try again later';
     }
 }
@@ -38,6 +40,7 @@ const deleteEmployee = async(employee_id) => {
     try{
         await EmployeeSchema.destroy({ where: { employee_id }});
     }catch(err){
+        logger.error(err);
         throw 'Failed to Remove Employee at this time. Try again later';
     }
 }

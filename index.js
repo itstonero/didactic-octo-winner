@@ -1,5 +1,7 @@
 const express = require('express');
 const { connectSequelize } = require('./configuration/sequelize');
+const logger = require("./services/logger")
+
 require("dotenv").config();
 
 const app = express();
@@ -11,4 +13,4 @@ app.use("*", (request, response)=> response.status(400).json({ message: "Route U
 
 connectSequelize(true, false);
 
-app.listen(process.env.PORT, console.log("Application Started on " + process.env.PORT))
+app.listen(process.env.PORT, logger.info("Application Started on " + process.env.PORT))
