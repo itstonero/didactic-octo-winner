@@ -1,13 +1,17 @@
 const express = require('express');
 const { connectSequelize } = require('./configuration/sequelize');
 const logger = require("./services/logger")
+const employeeRouter = require("./router/employee");
+const swaggerUi = require("swagger-ui-express")
+const swaggerDoc = require("./documentation/docs")
 
 require("dotenv").config();
 
 const app = express();
-const employeeRouter = require("./router/employee");
 
 app.use(express.json());
+app.use(logger.middleware);
+app.use(`/api/v1/docs`, swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use("/api/v1/employees", employeeRouter);
 app.use("*", (request, response)=> response.status(400).json({ message: "Route Unavailable"}));
 
