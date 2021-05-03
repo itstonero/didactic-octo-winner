@@ -11,9 +11,10 @@ const app = express();
 
 app.use(express.json());
 app.use(logger.middleware);
-app.use(`/api/v1/docs`, swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use("/api/v1/employees", employeeRouter);
-app.use("*", (request, response)=> response.status(400).json({ message: "Route Unavailable"}));
+app.use((request, response) => response.redirect("/api/v1/docs"));
+//app.use("*", (request, response)=> response.status(400).json({ message: "Route Unavailable"}));
 
 connectSequelize(true, false);
 
